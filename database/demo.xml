@@ -1,0 +1,27 @@
+<dbtable>
+    <tablename>sdb_o2o_py</tablename>
+    <fields>
+        <item>
+            <fieldsname>id1</fieldsname>
+            <fieldstype>int</fieldstype>
+        </item>
+        <item>
+            <fieldsname>id2</fieldsname>
+            <fieldstype>int</fieldstype>
+        </item>
+        <item>
+            <fieldsname>id3</fieldsname>
+            <fieldstype>int</fieldstype>
+        </item>
+        <item>
+            <fieldsname>status</fieldsname>
+            <fieldstype>enum('active','locked','successful','failing','finish')</fieldstype>
+        </item>
+    </fields>
+    <index>
+        <item>
+            <indexname>idx_demo_id1</indexname>
+            <indexfields>id1</indexfields>
+        </item>
+    </index>
+</dbtable>

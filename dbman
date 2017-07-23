@@ -1,0 +1,12 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+import warnings
+#忽略warning警告错误
+warnings.filterwarnings("ignore")
+import kernel as k
+dbman = k.kernel()
+
+dbman.update()
+
+
+

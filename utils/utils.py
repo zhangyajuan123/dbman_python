@@ -1,15 +1,9 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import ConfigParser
-import logging
-import os
-import warnings
 import xml.dom.minidom
-import utils.mysql as mysql
-
-warnings.filterwarnings("ignore")
-
-
+import os
+import logging
+import ConfigParser
 
 
 ##取配置的方法
@@ -32,10 +26,6 @@ def getConfigList(m='mysql'):
         config_list[c[0]] = c[1]
     return config_list
 
-#Mysql模块的配置
-MysqlConf = getConfigList('mysql')
-#文件存放目录配置
-FilesConf = getConfigList('data_file')
 
 ##获取目录下的XML文件列表
 ###参数：目录路径
@@ -45,26 +35,21 @@ def getFileList(dir_path):
     #返回结果
     returnlist = {}
     #过滤目录和无用文件
-    i = 0
     for f in listfile:
-        if os.path.isfile(f):
+        file = dir_path+'/'+f
+        if os.path.isfile(file):
             #只获取xml文件
             if os.path.splitext(f)[1] == '.xml':
-                i += 1
-                returnlist[i] = f
+                returnlist[os.path.splitext(f)[0]] = f
 
     return returnlist
-
-
 
 
 ##解析XML文件并放入DB字典
 ###参数：文件路径
 def file2dict(file_path):
-    global FilesConf
-    #print FilesConf['data']
     #打开xml文档
-    dom = xml.dom.minidom.parse('demo.xml')
+    dom = xml.dom.minidom.parse(file_path)
 
     #得到文档元素对象
     root = dom.documentElement
@@ -127,31 +112,3 @@ def __debuglog(_info):
 
 
 
-
-
-
-
-
-#获取当前工作路径
-dir_path = os.getcwd()
-print dir_path
-print '\r\n--------------\r\n'
-#测试getFileList方法
-#filelist = getFileList(dir_path)
-#print filelist
-
-#测试__debuglog方法
-#__debuglog('xxxxxxxx')
-
-
-print '\r\n--------------\r\n'
-m = mysql.mysql()
-sql = "SHOW FULL COLUMNS FROM phinxlog"
-
-#print m.table_exists('members')
-print '\r\n--------------\r\n'
-print m.getList(sql)
-
-
-
-print m.drop_table('t201704241')
